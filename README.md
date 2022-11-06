@@ -2,7 +2,14 @@
 
 # OOP School Library
 
-> In this project, you will start building your school library app. In this initial step, you will implement the classes to represent students and teachers.
+> This is a School Library App built in Ruby. The project will be broken down as follows:
+ - Project 1: add Person, Student, and Teacher classes.
+ - Project 2: use the "Decorator" design pattern.
+ - Project 3: set up associations.
+ - Project 4: add basic UI.
+ - Project 5: refactor your code.
+ - Project 6: preserve data.
+ - Project 7: unit tests.
 
 ## Built With
 
