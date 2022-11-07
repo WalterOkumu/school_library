@@ -2,20 +2,29 @@
 
 # OOP School Library
 
-> This is a School Library App built in Ruby. The project will be broken down as follows:
- - Project 1: add Person, Student, and Teacher classes.
- - Project 2: use the "Decorator" design pattern.
- - Project 3: set up associations.
- - Project 4: add basic UI.
- - Project 5: refactor your code.
- - Project 6: preserve data.
- - Project 7: unit tests.
+> In this project, you will start building your school library app. In this initial step, you will implement the classes to represent students and teachers.
 
 ## Built With
 
 - Major languages - Ruby
 
-## Authors
+## Getting Started
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+> Have Ruby, and Git installed
+
+### Usage
+
+> ruby main
+
+### Tests
+
+> rspec
+
+## Author
 
 👤 **Walter Okumu**
 
@@ -33,14 +42,6 @@ Feel free to check the [issues page](../../issues/).
 
 Give a ⭐️ if you like this project!
 
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
-
 ## 📝 License
 
 This project is [MIT](./MIT.md) licensed.
-
-_NOTE: we recommend using the [MIT license](https://choosealicense.com/licenses/mit/) - you can set it up quickly by [using templates available on GitHub](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository). You can also use [any other license](https://choosealicense.com/licenses/) if you wish._
