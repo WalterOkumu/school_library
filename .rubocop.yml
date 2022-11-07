@@ -1,6 +1,7 @@
 AllCops:
   NewCops: enable
   Exclude:
+    - "Gemfile"
     - "Guardfile"
     - "Rakefile"
     - "node_modules/**/*"
@@ -16,7 +17,7 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Max: 150
 Metrics/BlockLength:
-  IgnoredMethods: ['describe']
+  AllowedMethods: ['describe']
   Max: 30
 
 
