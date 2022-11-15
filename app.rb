@@ -13,15 +13,6 @@ class App
     @rentals = []
   end
 
-  def run
-    prompt_user
-  end
-
-  def exit_app
-    puts 'Thank you for using this School Library App built in Ruby!'
-    exit
-  end
-
   def list_all_people
     if @people.empty?
       puts 'There are no entries, please add people'

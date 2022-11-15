@@ -1,5 +1,7 @@
 require_relative './menu_choice'
 
+$menu_choice = MenuChoice.new
+
 def menu
   print <<~DOC
   Please choose an option by entering a number:"
@@ -11,21 +13,19 @@ def menu
     6 - List all rentals for a given person (id)
     7 - Exit App
   DOC
+  print 'Enter you choice : '
+  choice = gets.chomp.to_i
 end
 
 def prompt_user
-  menu
-
-  choice = gets.chomp.to_i
-  choice == 7 ? exit_app : option_case(choice)
-
+  choice = menu
+  choice == 7 ? $menu_choice.exit_app : $menu_choice.option_case(choice)
   prompt_user
 end
 
 def main
   puts "\nWelcome to the School Library App built in Ruby!"
-  app = App.new
-  app.run
+  prompt_user
 end
 
 main
