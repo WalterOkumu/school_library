@@ -1,4 +1,4 @@
-require_relative './app'
+require_relative './menu_choice'
 
 def menu
   print <<~DOC
@@ -11,25 +11,6 @@ def menu
     6 - List all rentals for a given person (id)
     7 - Exit App
   DOC
-end
-
-def option_case(choice)
-  case choice
-  when 1
-    list_all_books
-  when 2
-    list_all_people
-  when 3
-    create_person
-  when 4
-    create_book
-  when 5
-    create_rental
-  when 6
-    list_rentals_by_id
-  else
-    puts 'Incorrect choice, choose a number between 1..7'
-  end
 end
 
 def prompt_user
