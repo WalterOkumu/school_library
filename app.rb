@@ -7,7 +7,8 @@ require_relative './rental'
 require_relative 'file_handler'
 
 class App
-  attr_reader :books, :people, :rentals, :people_temp, :rentals_temp, :book_temp, :people_, :book_, :rentals_
+  attr_accessor :people_temp, :rentals_temp, :book_temp
+  attr_reader :books, :people, :rentals, :people_, :book_, :rentals_
 
   def initialize
     @books = []
@@ -19,19 +20,6 @@ class App
     @book_ = 'books.json'
     @people_ = 'people.json'
     @rentals_ = 'rentals.json'
-    @file = FileHandler.new
-  end
-
-  def book_loader
-    @book_temp = @file.file_handling(@book_)
-  end
-
-  def people_loader
-    @people_temp = @file.file_handling(@people_)
-  end
-
-  def rental_loader
-    @rentals_temp = @file.file_handling(@rentals_)
   end
 
   def people_list?
@@ -55,21 +43,22 @@ class App
   end
 
   def create_person
-    people_loader
     choice = person_choice
     case choice
     when 1
       student_obj = register_student
-      student = Student.new(student_obj['classroom'], student_obj['age'], name: student_obj['name'], parent_permission: student_obj['permission'])
-      @people << student
+      @people << Student.new(
+        student_obj['classroom'],
+        student_obj['age'],
+        name: student_obj['name'],
+        parent_permission: student_obj['permission']
+      )
       puts "The student '#{student_obj['name']}' aged '#{student_obj['age']}' with the classroom '
       #{student_obj['classroom']}' was created successfully!"
 
     when 2
       teacher_obj = register_teacher
-      teacher = Teacher.new(teacher_obj['specs'], teacher_obj['age'], name: teacher_obj['name'])
-      @people << teacher
-
+      @people << Teacher.new(teacher_obj['specs'], teacher_obj['age'], name: teacher_obj['name'])
       puts "The teacher '#{teacher_obj['name']}' aged '#{teacher_obj['age']}' with specialization in '
       #{teacher_obj['specs']}' was created successfully!"
 
@@ -77,28 +66,16 @@ class App
       puts 'Incorrect entry, please select between 1 or 2'
       create_person
     end
-    @people.each do |ppl|
-      @people_temp << {
-        :id => ppl.id,
-        :name => ppl.name,
-        :age => ppl.age,
-        :type =>ppl.class,
-      }
-    end
   end
 
   def register_student
     print 'Age: '
     age = gets.chomp.to_i
-
     print 'Classroom: (A101, A102, ... E106) '
     classroom = gets.chomp.upcase
-
     print 'Name: '
     name = gets.chomp
-
     has_permission = permission?
-
     {
       'classroom' => classroom,
       'age' => age,
@@ -110,13 +87,10 @@ class App
   def register_teacher
     print 'Age: '
     age = gets.chomp.to_i
-
     print 'Specialization: '
     specialization = gets.chomp
-
     print 'Name: '
     name = gets.chomp
-
     {
       'name' => name,
       'age' => age,

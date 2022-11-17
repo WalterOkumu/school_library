@@ -19,6 +19,9 @@ end
 
 def prompt_user
   choice = menu
+  @menu_choice.book_loader
+  @menu_choice.people_loader
+  @menu_choice.rental_loader
   choice == 7 ? @menu_choice.exit_app : @menu_choice.option_case(choice)
   prompt_user
 end
