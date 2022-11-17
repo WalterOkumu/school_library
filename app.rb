@@ -21,36 +21,44 @@ class App
     file = ''
     begin
       file = File.open(file_name, 'r+')
-    rescue StandardError => e
+    rescue => exception
       file = File.open(file_name, 'w')
     end
     case type
     when 'books'
       begin
         @books = JSON.parse(file.read)
-      rescue StandardError => e
+      rescue => exception
       end
     when 'people'
       begin
         @people = JSON.parse(file.read)
-      rescue StandardError => e
+      rescue => exception
       end
     when 'rentals'
       begin
-        @rentals_ = JSON.parse(file.read)
-      rescue StandardError => e
+        @rentals = JSON.parse(file.read)
+      rescue => exception
       end
     end
     file.close
   end
 
-  def book_loader; end
+  def file_save(file_name)
+
+  end
+
+  def book_loader
+    file_load(@book_)
+  end
 
   def people_loader
     file_load(@people_)
   end
 
-  def rental_loader; end
+  def rental_loader
+    file_load(@rentals_)
+  end
 
   def people_list?
     if @people.empty?
