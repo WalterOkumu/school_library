@@ -1,8 +1,10 @@
 require_relative './app'
+require_relative 'file_handler'
 
 class MenuChoice
   def initialize
     @app = App.new
+    @file = FileHandler.new
   end
 
   def option_case(choice)
@@ -24,7 +26,62 @@ class MenuChoice
     end
   end
 
+  def process_people
+    @app.people.each do |ppl|
+      @app.people_temp << {
+        id: ppl.id,
+        name: ppl.name,
+        age: ppl.age,
+        type: ppl.class
+      }
+    end
+  end
+
+  def process_book
+    @app.books.each do |bk|
+      @app.book_temp << {
+        title: bk.title,
+        author: bk.author
+      }
+    end
+  end
+
+  def process_rental
+    @app.rentals.each do |rntl|
+      @app.rentals_temp << {
+        person: {
+          name: rntl.person.name,
+          age: rntl.person.age,
+          type: rntl.person.class
+        },
+        date: rntl.date,
+        book: {
+          title: rntl.book.title,
+          author: rntl.book.author
+        }
+      }
+    end
+  end
+
+  def book_loader
+    @app.book_temp = @file.file_handling(@app.book_)
+  end
+
+  def people_loader
+    @app.people_temp = @file.file_handling(@app.people_)
+  end
+
+  def rental_loader
+    @app.rentals_temp = @file.file_handling(@app.rentals_)
+  end
+
   def exit_app
+    process_people
+    process_book
+    process_rental
+    @file.save(@app.people_, @app.people_temp)
+    @file.save(@app.book_, @app.book_temp)
+    @file.save(@app.rentals_, @app.rentals_temp)
     puts 'Thank you for using this School Library App built in Ruby!'
     exit
   end

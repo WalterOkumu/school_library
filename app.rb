@@ -1,20 +1,29 @@
+require 'json'
 require_relative './classroom'
 require_relative './student'
 require_relative './teacher'
 require_relative './book'
 require_relative './rental'
+require_relative 'file_handler'
 
 class App
-  attr_reader :books, :people, :rentals
+  attr_accessor :people_temp, :rentals_temp, :book_temp
+  attr_reader :books, :people, :rentals, :people_, :book_, :rentals_
 
   def initialize
     @books = []
     @people = []
     @rentals = []
+    @book_temp = []
+    @people_temp = []
+    @rentals_temp = []
+    @book_ = 'books.json'
+    @people_ = 'people.json'
+    @rentals_ = 'rentals.json'
   end
 
   def people_list?
-    if @people.empty?
+    if @people_temp.empty?
       puts 'There are no entries, please add people'
     else
       list_all_people
@@ -22,9 +31,9 @@ class App
   end
 
   def list_all_people
-    puts "People's list, count(#{@people.count}) :\n\n"
-    @people.each_with_index do |person, index|
-      puts "#{index + 1}) Type: #{person.type}, Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    puts "People's list, count(#{@people_temp.count}) :\n\n"
+    @people_temp.each_with_index do |person, index|
+      puts "#{index + 1}) Type: #{person['type']}, Name: #{person['name']}, ID: #{person['id']}, Age: #{person['age']}"
     end
   end
 
@@ -38,18 +47,18 @@ class App
     case choice
     when 1
       student_obj = register_student
-      student = Student.new(student_obj['classroom'], student_obj['age'], name: student_obj['name'],
-                                                                          parent_permission: student_obj['permission'])
-      @people << student unless @people.include?(student)
-
+      @people << Student.new(
+        student_obj['classroom'],
+        student_obj['age'],
+        name: student_obj['name'],
+        parent_permission: student_obj['permission']
+      )
       puts "The student '#{student_obj['name']}' aged '#{student_obj['age']}' with the classroom '
       #{student_obj['classroom']}' was created successfully!"
 
     when 2
       teacher_obj = register_teacher
-      teacher = Teacher.new(teacher_obj['specs'], teacher_obj['age'], name: teacher_obj['name'])
-      @people << teacher unless @people.include?(teacher)
-
+      @people << Teacher.new(teacher_obj['specs'], teacher_obj['age'], name: teacher_obj['name'])
       puts "The teacher '#{teacher_obj['name']}' aged '#{teacher_obj['age']}' with specialization in '
       #{teacher_obj['specs']}' was created successfully!"
 
@@ -62,15 +71,11 @@ class App
   def register_student
     print 'Age: '
     age = gets.chomp.to_i
-
     print 'Classroom: (A101, A102, ... E106) '
     classroom = gets.chomp.upcase
-
     print 'Name: '
     name = gets.chomp
-
     has_permission = permission?
-
     {
       'classroom' => classroom,
       'age' => age,
@@ -82,13 +87,10 @@ class App
   def register_teacher
     print 'Age: '
     age = gets.chomp.to_i
-
     print 'Specialization: '
     specialization = gets.chomp
-
     print 'Name: '
     name = gets.chomp
-
     {
       'name' => name,
       'age' => age,
@@ -112,12 +114,12 @@ class App
   end
 
   def list_all_books
-    if @books.empty?
+    if @book_temp.empty?
       puts 'A sad library is an empty library, please add some books'
     else
       puts "Books list, count(#{@books.count}) :\n\n"
-      @books.each_with_index do |book, index|
-        puts "#{index + 1}) Title: '#{book.title}', Author: #{book.author}"
+      @book_temp.each_with_index do |book, index|
+        puts "#{index + 1}) Title: '#{book['title']}', Author: #{book['author']}"
       end
     end
   end
