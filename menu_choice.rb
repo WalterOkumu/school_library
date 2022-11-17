@@ -41,7 +41,24 @@ class MenuChoice
     @app.books.each do |bk|
       @app.book_temp << {
         title: bk.title,
-        author: bk.author,
+        author: bk.author
+      }
+    end
+  end
+
+  def process_rental
+    @app.rentals.each do |rntl|
+      @app.rentals_temp << {
+        person: {
+          name: rntl.person.name,
+          age: rntl.person.age,
+          type: rntl.person.class
+        },
+        date: rntl.date,
+        book: {
+          title: rntl.book.title,
+          author: rntl.book.author
+        }
       }
     end
   end
@@ -61,8 +78,10 @@ class MenuChoice
   def exit_app
     process_people
     process_book
+    process_rental
     @file.save(@app.people_, @app.people_temp)
     @file.save(@app.book_, @app.book_temp)
+    @file.save(@app.rentals_, @app.rentals_temp)
     puts 'Thank you for using this School Library App built in Ruby!'
     exit
   end
