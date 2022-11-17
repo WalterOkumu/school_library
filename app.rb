@@ -1,8 +1,10 @@
+require 'json'
 require_relative './classroom'
 require_relative './student'
 require_relative './teacher'
 require_relative './book'
 require_relative './rental'
+require_relative 'file_handler'
 
 class App
   attr_reader :books, :people, :rentals
@@ -14,50 +16,19 @@ class App
     @book_ = 'books.json'
     @people_ = 'people.json'
     @rentals_ = 'rentals.json'
-  end
-
-  def file_load(file_name)
-    type = file_name.split('.')[0]
-    file = ''
-    begin
-      file = File.open(file_name, 'r+')
-    rescue => exception
-      file = File.open(file_name, 'w')
-    end
-    case type
-    when 'books'
-      begin
-        @books = JSON.parse(file.read)
-      rescue => exception
-      end
-    when 'people'
-      begin
-        @people = JSON.parse(file.read)
-      rescue => exception
-      end
-    when 'rentals'
-      begin
-        @rentals = JSON.parse(file.read)
-      rescue => exception
-      end
-    end
-    file.close
-  end
-
-  def file_save(file_name)
-
+    @file = FileHandler.new
   end
 
   def book_loader
-    file_load(@book_)
+    @books = @file.file_handling(@book_)
   end
 
   def people_loader
-    file_load(@people_)
+    @people = @file.file_handling(@people_)
   end
 
   def rental_loader
-    file_load(@rentals_)
+    @rentals = @file.file_handling(@rentals_)
   end
 
   def people_list?
