@@ -23,7 +23,7 @@ class App
   end
 
   def people_list?
-    if @people.empty?
+    if @people_temp.empty?
       puts 'There are no entries, please add people'
     else
       list_all_people
@@ -31,9 +31,9 @@ class App
   end
 
   def list_all_people
-    puts "People's list, count(#{@people.count}) :\n\n"
-    @people.each_with_index do |person, index|
-      puts "#{index + 1}) Type: #{person.type}, Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    puts "People's list, count(#{@people_temp.count}) :\n\n"
+    @people_temp.each_with_index do |person, index|
+      puts "#{index + 1}) Type: #{person['type']}, Name: #{person['name']}, ID: #{person['id']}, Age: #{person['age']}"
     end
   end
 
@@ -114,12 +114,12 @@ class App
   end
 
   def list_all_books
-    if @books.empty?
+    if @book_temp.empty?
       puts 'A sad library is an empty library, please add some books'
     else
       puts "Books list, count(#{@books.count}) :\n\n"
-      @books.each_with_index do |book, index|
-        puts "#{index + 1}) Title: '#{book.title}', Author: #{book.author}"
+      @book_temp.each_with_index do |book, index|
+        puts "#{index + 1}) Title: '#{book['title']}', Author: #{book['author']}"
       end
     end
   end
