@@ -10,7 +10,7 @@ class MenuChoice
     when 1
       @app.list_all_books
     when 2
-      @app.list_all_people
+      @app.people_list?
     when 3
       @app.create_person
     when 4
