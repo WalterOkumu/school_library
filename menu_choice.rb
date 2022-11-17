@@ -1,8 +1,10 @@
 require_relative './app'
+require_relative 'file_handler'
 
 class MenuChoice
   def initialize
     @app = App.new
+    @file = FileHandler.new
     @app.book_loader
     @app.people_loader
     @app.rental_loader
@@ -28,6 +30,7 @@ class MenuChoice
   end
 
   def exit_app
+    @file.save(@app.people_, @app.people_temp)
     puts 'Thank you for using this School Library App built in Ruby!'
     exit
   end
