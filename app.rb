@@ -13,35 +13,46 @@ class App
     @rentals = []
   end
 
-  def run
-    prompt_user
-  end
-
-  def exit_app
-    puts 'Thank you for using this School Library App built in Ruby!'
-    exit
-  end
-
-  def list_all_people
+  def people_list?
     if @people.empty?
       puts 'There are no entries, please add people'
     else
-      puts "People's list, count(#{@people.count}) :\n\n"
-      @people.each_with_index do |person, index|
-        puts "#{index + 1}) Type: #{person.type}, Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
-      end
+      list_all_people
     end
   end
 
-  def create_person
-    puts 'To create a student (press 1) or a teacher (press 2)?'
-    choice = gets.chomp.to_i
+  def list_all_people
+    puts "People's list, count(#{@people.count}) :\n\n"
+    @people.each_with_index do |person, index|
+      puts "#{index + 1}) Type: #{person.type}, Name: #{person.name}, ID: #{person.id}, Age: #{person.age}"
+    end
+  end
 
+  def person_choice
+    puts 'To create a student (press 1) or a teacher (press 2)?'
+    gets.chomp.to_i
+  end
+
+  def create_person
+    choice = person_choice
     case choice
     when 1
-      register_student
+      student_obj = register_student
+      student = Student.new(student_obj['classroom'], student_obj['age'], name: student_obj['name'],
+                                                                          parent_permission: student_obj['permission'])
+      @people << student unless @people.include?(student)
+
+      puts "The student '#{student_obj['name']}' aged '#{student_obj['age']}' with the classroom '
+      #{student_obj['classroom']}' was created successfully!"
+
     when 2
-      register_teacher
+      teacher_obj = register_teacher
+      teacher = Teacher.new(teacher_obj['specs'], teacher_obj['age'], name: teacher_obj['name'])
+      @people << teacher unless @people.include?(teacher)
+
+      puts "The teacher '#{teacher_obj['name']}' aged '#{teacher_obj['age']}' with specialization in '
+      #{teacher_obj['specs']}' was created successfully!"
+
     else
       puts 'Incorrect entry, please select between 1 or 2'
       create_person
@@ -60,10 +71,12 @@ class App
 
     has_permission = permission?
 
-    student = Student.new(classroom, age, name: name, parent_permission: has_permission)
-    @people << student unless @people.include?(student)
-
-    puts "The student '#{name}' aged '#{age}' with the classroom '#{classroom}' was created successfully!"
+    {
+      'classroom' => classroom,
+      'age' => age,
+      'name' => name,
+      'permission' => has_permission
+    }
   end
 
   def register_teacher
@@ -76,10 +89,11 @@ class App
     print 'Name: '
     name = gets.chomp
 
-    teacher = Teacher.new(specialization, age, name: name)
-    @people << teacher unless @people.include?(teacher)
-
-    puts "The teacher '#{name}' aged '#{age}' with specialization in '#{specialization}' was created successfully!"
+    {
+      'name' => name,
+      'age' => age,
+      'specs' => specialization
+    }
   end
 
   def permission?

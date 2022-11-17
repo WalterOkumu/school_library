@@ -1,51 +1,31 @@
-require_relative './app'
+require_relative './menu_choice'
+
+@menu_choice = MenuChoice.new
 
 def menu
-  puts "\nPlease choose an option by entering a number:"
-  options = [
-    '1 - List all books',
-    '2 - List all people',
-    '3 - Create a person',
-    '4 - Create a book',
-    '5 - Create a rental',
-    '6 - List all rentals for a given person (id)',
-    '7 - Exit App'
-  ]
-  puts options
-end
-
-def option_case(choice)
-  case choice
-  when 1
-    list_all_books
-  when 2
-    list_all_people
-  when 3
-    create_person
-  when 4
-    create_book
-  when 5
-    create_rental
-  when 6
-    list_rentals_by_id
-  else
-    puts 'Incorrect choice, choose a number between 1..7'
-  end
+  print <<~DOC
+    Please choose an option by entering a number:
+    1 - List all books
+    2 - List all people
+    3 - Create a person
+    4 - Create a book
+    5 - Create a rental
+    6 - List all rentals for a given person (id)
+    7 - Exit App
+  DOC
+  print 'Enter you choice : '
+  gets.chomp.to_i
 end
 
 def prompt_user
-  menu
-
-  choice = gets.chomp.to_i
-  choice == 7 ? exit_app : option_case(choice)
-
+  choice = menu
+  choice == 7 ? @menu_choice.exit_app : @menu_choice.option_case(choice)
   prompt_user
 end
 
 def main
   puts "\nWelcome to the School Library App built in Ruby!"
-  app = App.new
-  app.run
+  prompt_user
 end
 
 main

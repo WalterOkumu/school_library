@@ -32,6 +32,12 @@ To get a local copy up and running follow these simple example steps.
 - Twitter: [@OkumuOriaro](https://twitter.com/OkumuOriaro)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/okumu-oriaro/)
 
+👤 **Aakash Verma**
+
+- GitHub: [@skyv26](https://github.com/skyv26)
+- Twitter: [@vrma_aakash](https://twitter.com/vrma_aakash)
+- LinkedIn: [dev.aakashv](https://linkedin.com/in/skyv2022)
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
