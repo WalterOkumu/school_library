@@ -11,7 +11,46 @@ class App
     @books = []
     @people = []
     @rentals = []
+    @book_ = 'books.json'
+    @people_ = 'people.json'
+    @rentals_ = 'rentals.json'
   end
+
+  def file_load(file_name)
+    type = file_name.split('.')[0]
+    file = ''
+    begin
+      file = File.open(file_name, 'r+')
+    rescue StandardError => e
+      file = File.open(file_name, 'w')
+    end
+    case type
+    when 'books'
+      begin
+        @books = JSON.parse(file.read)
+      rescue StandardError => e
+      end
+    when 'people'
+      begin
+        @people = JSON.parse(file.read)
+      rescue StandardError => e
+      end
+    when 'rentals'
+      begin
+        @rentals_ = JSON.parse(file.read)
+      rescue StandardError => e
+      end
+    end
+    file.close
+  end
+
+  def book_loader; end
+
+  def people_loader
+    file_load(@people_)
+  end
+
+  def rental_loader; end
 
   def people_list?
     if @people.empty?
@@ -34,6 +73,7 @@ class App
   end
 
   def create_person
+    people_loader
     choice = person_choice
     case choice
     when 1
