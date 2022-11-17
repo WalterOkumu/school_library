@@ -3,6 +3,9 @@ require_relative './app'
 class MenuChoice
   def initialize
     @app = App.new
+    @app.book_loader
+    @app.people_loader
+    @app.rental_loader
   end
 
   def option_case(choice)
