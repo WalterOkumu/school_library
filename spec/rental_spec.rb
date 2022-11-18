@@ -33,6 +33,5 @@ describe Rental do
         expect(@student.rentals.length).to eql(1)
       end
     end
-    
   end
 end
