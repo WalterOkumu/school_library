@@ -22,7 +22,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Tests
 
-> rspec
+> rspec spec
 
 ## Author
 
@@ -40,7 +40,7 @@ To get a local copy up and running follow these simple example steps.
 
 ## 🔭 Future Feature
 
-RSPec Testing
+Soon new feature like database connectivity will be added.
 
 
 ## 🤝 Contributing
