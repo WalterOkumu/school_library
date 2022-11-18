@@ -1,7 +1,7 @@
 require_relative '../student'
 
 describe Student do
-  context 'Testing for Rental Class' do
+  context 'Testing for Student Class' do
     before do
       @student = Student.new(
         'A101',
