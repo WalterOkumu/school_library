@@ -22,6 +22,5 @@ describe Student do
         expect(@student.age).to eql(25)
       end
     end
-
   end
 end

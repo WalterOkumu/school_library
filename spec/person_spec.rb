@@ -1,14 +1,14 @@
 require_relative '../person'
 
 describe Person do
-  context "#person" do
+  context '#person' do
     before do
       @person = Person.new(28, name: 'Aakash Verma', parent_permission: true)
     end
 
     describe 'Testing Person Class Name' do
       it 'will check the name should "Aakash Verma"' do
-        expect(@person.name).to eql("Aakash Verma")
+        expect(@person.name).to eql('Aakash Verma')
       end
     end
 

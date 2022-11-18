@@ -21,6 +21,5 @@ describe Teacher do
         expect(@teacher.age).to eql(25)
       end
     end
-
   end
 end
