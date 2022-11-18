@@ -1,5 +1,4 @@
 require_relative '../book'
-require_relative '../classroom'
 
 describe Book do
   context 'Create Book 1st Instance' do
